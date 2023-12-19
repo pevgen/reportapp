@@ -10,14 +10,17 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestReportappApplication {
 
-	@Bean
-	@ServiceConnection
-	PostgreSQLContainer<?> postgresContainer() {
-		return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"));
-	}
+    @Bean
+    @ServiceConnection
+    PostgreSQLContainer<?> postgresContainer() {
+        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
+                .withDatabaseName("db")
+                .withUsername("test_user")
+                .withPassword("test_password");
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.from(ReportappApplication::main).with(TestReportappApplication.class).run(args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.from(ReportappApplication::main).with(TestReportappApplication.class).run(args);
+    }
 
 }
