@@ -13,10 +13,11 @@ public class TestReportappApplication {
     @Bean
     @ServiceConnection
     PostgreSQLContainer<?> postgresContainer() {
-        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
-                .withDatabaseName("db")
-                .withUsername("test_user")
-                .withPassword("test_password");
+        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:16.1"))
+//                .withDatabaseName("db")
+//                .withUsername("test_user")
+//                .withPassword("test_password");
+        ;
     }
 
     public static void main(String[] args) {

@@ -1,1 +1,13 @@
+spring:
+  docker:
+    compose:
+      enabled: false
 
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
