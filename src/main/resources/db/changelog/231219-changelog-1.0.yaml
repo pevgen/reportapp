@@ -3,21 +3,7 @@ databaseChangeLog:
       id:  231219-001
       author:  pevgen
       changes:
-        -  createTable:
-             tableName:  tasks
-             columns:
-               -  column:
-                    name:  task_id
-                    type:  varchar(50)
-                    autoIncrement:  false
-                    constraints:
-                      primaryKey:  true
-                      nullable:  false
-               -  column:
-                    name:  firstname
-                    type:  varchar(50)
-               -  column:
-                    name:  lastname
-                    type:  varchar(50)
-                    constraints:
-                      nullable:  false
+        - sqlFile:
+            dbms: 'postgresql'
+            path: ./sql/init.sql
+            relativeToChangelogFile: true
