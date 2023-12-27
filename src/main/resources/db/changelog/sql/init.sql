@@ -1,4 +1,4 @@
-create table tasks
+create table issues
 (
     issue_id  varchar(50) not null primary key,
     issue_key  varchar(50) not null,
@@ -14,5 +14,5 @@ create table tasks
     story_points int
 );
 
-alter table tasks
-    owner to myuser;
+-- alter table Issues
+--     owner to myuser;
