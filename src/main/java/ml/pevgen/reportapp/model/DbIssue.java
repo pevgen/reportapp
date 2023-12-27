@@ -58,6 +58,8 @@ public class DbIssue implements Persistable<String> {
         this.storyPoints = storyPoints;
     }
 
+    public DbIssue() {
+    }
 
     @Override
     public String getId() {
