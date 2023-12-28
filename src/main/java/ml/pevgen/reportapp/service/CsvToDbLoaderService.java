@@ -26,11 +26,15 @@ public class CsvToDbLoaderService implements LoaderService {
     @Override
     public int loadData(Reader reader) {
         List<CSVIssue> issues = parser.parseIssues(reader);
-        for (var issue : issues) {
-            DbIssue dbIssue = modelMapper.map(issue, DbIssue.class);
-            dbIssue.setNew();
-            issueRepository.save(dbIssue);
-        }
-        return issues.size();
+        List<DbIssue> dbIssues =
+                issues.stream()
+                        .map(issue -> {
+                            DbIssue dbIssue = modelMapper.map(issue, DbIssue.class);
+                            dbIssue.setNew();
+                            return dbIssue;
+                        })
+                        .toList();
+        issueRepository.saveAll(dbIssues);
+        return dbIssues.size();
     }
 }
