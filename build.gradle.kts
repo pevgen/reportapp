@@ -31,8 +31,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.liquibase:liquibase-core")
-    implementation("com.opencsv:opencsv")
+    implementation("org.liquibase:liquibase-core") {
+        exclude(group  = "commons-logging", module = "commons-logging")
+    }
+    implementation("com.opencsv:opencsv"){
+        exclude(group  = "commons-logging", module = "commons-logging")
+    }
     implementation("org.modelmapper:modelmapper:$modelMapperVersion")
     implementation("org.webjars:webjars-locator:$webjarsLocatorVersion")
     implementation("org.webjars:bootstrap:$webjarsBootstrapVersion")
