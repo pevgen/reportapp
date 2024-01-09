@@ -1,11 +1,18 @@
 package ml.pevgen.reportapp.model;
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 
-@Data
+//@Data
+//@Builder
+//@NoArgsConstructor
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class DtoIssue {
 
     private String issueId;
@@ -21,4 +28,8 @@ public class DtoIssue {
     private LocalDateTime updated;
     private Integer storyPoints;
 
+    private Double leadDays;
+    private Double cycleDays;
+    private Double waitingTestDays;
+    private Double testingDays;
 }

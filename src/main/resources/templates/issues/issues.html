@@ -25,6 +25,10 @@
         <th scope="col">Resolved</th>
         <th scope="col">Updated</th>
         <th scope="col">StoryPoint</th>
+        <th scope="col">CycleTime (Days)</th>
+        <th scope="col">LeadTime (Days)</th>
+        <th scope="col">WaitingTest (Days)</th>
+        <th scope="col">Testing (Days)</th>
     </tr>
     </thead>
     <tbody>
@@ -44,6 +48,10 @@
         <td th:text="${#temporals.format(issue.getResolved(), 'dd.MM.yyyy HH:mm')}"></td>
         <td th:text="${#temporals.format(issue.getUpdated(), 'dd.MM.yyyy HH:mm')}"></td>
         <td th:text="${issue.getStoryPoints()}"></td>
+        <td th:text="${issue.getCycleDays()}"></td>
+        <td th:text="${issue.getLeadDays()}"></td>
+        <td th:text="${issue.getWaitingTestDays()}"></td>
+        <td th:text="${issue.getTestingDays()}"></td>
     </tr>
     </tbody>
 </table>
