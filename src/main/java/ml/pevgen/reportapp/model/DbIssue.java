@@ -1,6 +1,6 @@
 package ml.pevgen.reportapp.model;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
@@ -10,7 +10,11 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDateTime;
 
 @Table(value = "issues")
-@Data
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class DbIssue implements Persistable<String> {
 
     @Id
@@ -23,6 +27,7 @@ public class DbIssue implements Persistable<String> {
     @Column("summary")
     private String summary;
     @Column("created")
+    @NonNull
     private LocalDateTime created;
     @Column("start_process_init")
     private LocalDateTime startProcessInit;
@@ -33,6 +38,7 @@ public class DbIssue implements Persistable<String> {
     @Column("testing_init")
     private LocalDateTime testingInit;
     @Column("resolved")
+    @NonNull
     private LocalDateTime resolved;
     @Column("updated")
     private LocalDateTime updated;
@@ -40,7 +46,18 @@ public class DbIssue implements Persistable<String> {
     private Integer storyPoints;
 
     @Transient
+    private Double leadDays;
+    @Transient
+    private Double cycleDays;
+    @Transient
+    private Double waitingTestDays;
+    @Transient
+    private Double testingDays;
+
+    @Transient
     private boolean newEntity;
+
+
 
     @SuppressWarnings("java:S107")
     public DbIssue(String issueId, String issueKey, String issueType, String summary, LocalDateTime created, LocalDateTime startProcessInit, LocalDateTime startProcessUpdate, LocalDateTime toTestInit, LocalDateTime testingInit, LocalDateTime resolved, LocalDateTime updated, Integer storyPoints) {
@@ -56,9 +73,6 @@ public class DbIssue implements Persistable<String> {
         this.resolved = resolved;
         this.updated = updated;
         this.storyPoints = storyPoints;
-    }
-
-    public DbIssue() {
     }
 
     @Override

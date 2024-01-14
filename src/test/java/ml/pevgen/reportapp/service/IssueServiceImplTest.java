@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -25,7 +25,7 @@ class IssueServiceImplTest {
     @Test
     void should_return_all_issues_from_repository() {
         when(issueRepository.findAll()).thenReturn(
-                Set.of(
+                List.of(
                         new DbIssue(
                                 "1",
                                 "key-1",
