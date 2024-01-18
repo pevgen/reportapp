@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reportapp
+  labels:
+    app: reportapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reportapp
+  template:
+    metadata:
+      name: reportapp
+      labels:
+        app: reportapp
+    spec:
+      containers:
+        - name: reportapp
+          image: docker.io/example/reportapp:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
+      
