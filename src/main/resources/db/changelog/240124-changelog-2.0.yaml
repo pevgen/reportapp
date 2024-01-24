@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 240124-002
+      author: pevgen
+      changes:
+        -  createProcedure:
+            dbms:  postgresql
+            encoding:  UTF-8
+            path:  ./sql/240124-calc-lead-time-function-1.0.sql
+            relativeToChangelogFile:  true
+            schemaName:  public
+        -  createProcedure:
+               dbms:  postgresql
+               encoding:  UTF-8
+               path:  ./sql/240124-calc-lead-time-trg-1.0.sql
+               relativeToChangelogFile:  true
+               schemaName:  public
+

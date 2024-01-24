@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 240124-001
+      author: pevgen
+      changes:
+        - addColumn:
+            tableName: issues
+            columns:
+              - column:
+                  name: lead_time
+                  type: float4
+                  remarks: 'Lead Time (Days, calculated)'
+              - column:
+                  name: cycle_time
+                  type: float4
+                  remarks: 'Cycle Time (Days, calculated)'
+              - column:
+                  name: waiting_test_time
+                  type: float4
+                  remarks: 'Waiting Test Time (Days, calculated)'
+              - column:
+                  name: testing_time
+                  type: float4
+                  remarks: 'Testing Time (Days, calculated)'
+
