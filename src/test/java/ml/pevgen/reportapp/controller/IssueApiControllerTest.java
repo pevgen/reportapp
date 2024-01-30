@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -71,4 +72,18 @@ class IssueApiControllerTest {
                 .andExpect(content().string(containsString(createdDateTime.format(dtFormatter))))
                 .andExpect(content().string(containsString(resolvedDateTime.format(dtFormatter))));
     }
+
+    @Test
+    void should_return_exception_using_global_exception_controller() throws Exception {
+        when(issueService.getAllIssues()).thenThrow(
+                new RuntimeException("specific runtime exception"));
+
+        this.mockMvc
+                .perform(get("/api/v1/issues"))
+                .andDo(print())
+                .andExpect(status().is5xxServerError())
+                .andExpect(jsonPath("$.statusCode", is(500)))
+                .andExpect(jsonPath("$.message", is("specific runtime exception")));
+    }
+
 }
