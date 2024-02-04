@@ -31,7 +31,7 @@ class IssueRepositoryTest {
     void should_save_issues() {
         for (int i = 0; i < 10; i++) {
             LocalDateTime created = LocalDateTime.now();
-            DbIssue isuue = DbIssue.builder()
+            DbIssue issue = DbIssue.builder()
                     .issueId(String.valueOf(i))
                     .issueKey("MMM-" + i)
                     .issueType("Task")
@@ -43,8 +43,8 @@ class IssueRepositoryTest {
                     .created(created)
                     .resolved(created.plusHours(30))
                     .build();
-            isuue.setNew();
-            issueRepository.save(isuue);
+            issue.setNew();
+            issueRepository.save(issue);
         }
 
         List<DbIssue> issues = issueRepository.findAll();
@@ -55,6 +55,70 @@ class IssueRepositoryTest {
         assertThat(firstRow.getCycleDays()).isEqualTo(1);
         assertThat(firstRow.getWaitingTestDays()).isEqualTo(0.25);
         assertThat(firstRow.getTestingDays()).isEqualTo(0.5);
+    }
+
+    @Test
+    @DirtiesContext
+    void should_delete_all_issues() {
+        for (int i = 0; i < 10; i++) {
+            LocalDateTime created = LocalDateTime.now();
+            DbIssue issue = DbIssue.builder()
+                    .issueId(String.valueOf(i))
+                    .issueKey("MMM-" + i)
+                    .issueType("Task")
+                    .summary("description на русском языке")
+                    .created(created)
+                    .startProcessUpdate(created.plusHours(6))
+                    .toTestInit(created.plusHours(12))
+                    .testingInit(created.plusHours(18))
+                    .created(created)
+                    .resolved(created.plusHours(30))
+                    .build();
+            issue.setNew();
+            issueRepository.save(issue);
+        }
+
+        List<DbIssue> issues = issueRepository.findAll();
+        assertThat(issues).hasSize(10);
+
+        issueRepository.deleteAll();
+
+        assertThat(issueRepository.findAll()).isEmpty();
+    }
+
+    @Test
+    @DirtiesContext
+    void should_delete_issue_by_id() {
+
+        String tempIssueId = "5";
+
+        for (int i = 0; i < 10; i++) {
+            LocalDateTime created = LocalDateTime.now();
+            DbIssue issue = DbIssue.builder()
+                    .issueId(String.valueOf(i))
+                    .issueKey("MMM-" + i)
+                    .issueType("Task")
+                    .summary("description на русском языке")
+                    .created(created)
+                    .startProcessUpdate(created.plusHours(6))
+                    .toTestInit(created.plusHours(12))
+                    .testingInit(created.plusHours(18))
+                    .created(created)
+                    .resolved(created.plusHours(30))
+                    .build();
+            issue.setNew();
+            issueRepository.save(issue);
+        }
+
+        DbIssue issue = issueRepository.findById(tempIssueId).orElse(new DbIssue());
+        assertThat(issue.getIssueId()).isEqualTo(tempIssueId);
+        assertThat(issue.getIssueKey()).isEqualTo("MMM-" + tempIssueId);
+
+        issueRepository.deleteById("5");
+
+        assertThat(issueRepository.findAll()).hasSize(9);
+        DbIssue emptyIssue = issueRepository.findById(tempIssueId).orElse(new DbIssue());
+        assertThat(emptyIssue.getIssueId()).isNullOrEmpty();
     }
 
 }

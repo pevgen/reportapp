@@ -11,4 +11,5 @@ public interface IssueRepository extends CrudRepository<DbIssue, String> {
 
     @Override
     List<DbIssue> findAll();
+
 }

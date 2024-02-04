@@ -7,4 +7,8 @@ import java.util.List;
 public interface IssueService {
 
     List<DtoIssue> getAllIssues();
+
+    void deleteAllIssues();
+
+    String deleteById(String issueId);
 }

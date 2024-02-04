@@ -1,5 +1,6 @@
 package ml.pevgen.reportapp.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import ml.pevgen.reportapp.model.DtoIssue;
 import ml.pevgen.reportapp.service.IssueService;
 import ml.pevgen.reportapp.service.LoaderService;
@@ -14,6 +15,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 @RestController
 @RequestMapping("/api/v1/issues")
+@Slf4j
 public class IssueApiController {
 
     private final IssueService issueService;
@@ -36,4 +38,17 @@ public class IssueApiController {
     public List<DtoIssue> getIssues() {
         return issueService.getAllIssues();
     }
+
+    @DeleteMapping
+    public void deleteAllIssues() {
+        issueService.getAllIssues();
+    }
+
+    @DeleteMapping("/{issueId}")
+    public String deleteIssueById(@PathVariable String issueId) {
+        issueService.deleteById(issueId);
+        log.debug("Deleted issue with id {}", issueId);
+        return String.format("Deleted issue with id = [%s]", issueId);
+    }
+
 }

@@ -15,7 +15,9 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -84,6 +86,26 @@ class IssueApiControllerTest {
                 .andExpect(status().is5xxServerError())
                 .andExpect(jsonPath("$.statusCode", is(500)))
                 .andExpect(jsonPath("$.message", is("specific runtime exception")));
+    }
+
+    @Test
+    void should_return_ok_if_all_delete_ok() throws Exception {
+        doNothing().when(issueService).deleteAllIssues();
+
+        this.mockMvc
+                .perform(delete("/api/v1/issues"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void should_delete_issue_by_id() throws Exception {
+        when(issueService.deleteById("1")).thenReturn("1");
+        this.mockMvc
+                .perform(delete("/api/v1/issues/{issueId}", 1))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Deleted issue with id = [1]")));
     }
 
 }
