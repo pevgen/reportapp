@@ -41,7 +41,8 @@ public class IssueApiController {
 
     @DeleteMapping
     public void deleteAllIssues() {
-        issueService.getAllIssues();
+        issueService.deleteAllIssues();
+        log.info("Deleted all issues");
     }
 
     @DeleteMapping("/{issueId}")
