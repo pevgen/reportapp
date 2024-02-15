@@ -48,7 +48,7 @@ public class IssueApiController {
     @DeleteMapping("/{issueId}")
     public String deleteIssueById(@PathVariable String issueId) {
         issueService.deleteById(issueId);
-        log.debug("Deleted issue with id {}", issueId);
+        log.info("Deleted issue with id {}", issueId);
         return String.format("Deleted issue with id = [%s]", issueId);
     }
 

@@ -6,16 +6,42 @@
 </head>
 
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
-<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"  type="text/css"/>
+<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <script src="/webjars/bootstrap/js/bootstrap.bundle.min.js" defer></script>
 <script src="/webjars/jquery/jquery.min.js"></script>
 
+<script>
+
+     $(document).on('click', 'table td input', function() {
+
+        $.ajax({
+            url: '/api/v1/issues/' + this.id,
+            type: 'DELETE',
+            success: function () {
+                alert("Successfully deleted issue : " + this.id);
+                console.log("'Deleted id=" + this.id);
+                window.location.reload()
+            },
+            error: function (result) {
+                alert("Error with delete issue: " + this.id);
+                console.log("'Error: {}", result);
+                window.location.reload()
+            }
+        });
+
+    });
+
+
+</script>
+
 <body>
+
 <h1 class="page-header">Список всех issue в БД</h1>
 
 <table class="table table-hover">
     <thead>
     <tr>
+        <th scope="col"></th>
         <th scope="col">ID</th>
         <th scope="col">Key</th>
         <th scope="col">Type</th>
@@ -40,23 +66,30 @@
 </table>
 
 <script>
-    (function() {
+
+
+    (function () {
 
         const myApi = "http://localhost:8080/api/v1/issues";
-        $.getJSON( myApi, function( json ) {
+        $.getJSON(myApi, function (json) {
             const dtFormatter =
                 new Intl.DateTimeFormat(
                     'ru-RU',
-                    { day: '2-digit',
+                    {
+                        day: '2-digit',
                         month: '2-digit',
                         year: 'numeric',
-                    hour: '2-digit',
-                    minute: 'numeric'});
+                        hour: '2-digit',
+                        minute: 'numeric'
+                    });
 
 
             var tr = ""
             for (var i = 0; i < json.length; i++) {
                 tr = $('<tr/>');
+
+                tr.append("<td><input class='deleteBtn' value='Delete' type='button' id='" + json[i].issueId + "'/></td>");
+
                 tr.append("<td>" + json[i].issueId + "</td>");
                 tr.append("<td>" + json[i].issueKey + "</td>");
                 tr.append("<td>" + json[i].issueType + "</td>");
@@ -68,27 +101,25 @@
                 if (json[i].toTestInit != null) {
                     tr.append("<td>" + dtFormatter.format(new Date(json[i].toTestInit)) + "</td>");
                 }
-                if (json[i].testingInit !=null) {
+                if (json[i].testingInit != null) {
                     tr.append("<td>" + dtFormatter.format(new Date(json[i].testingInit)) + "</td>");
                 }
                 tr.append("<td>" + dtFormatter.format(new Date(json[i].resolved)) + "</td>");
                 tr.append("<td>" + dtFormatter.format(new Date(json[i].updated)) + "</td>");
-                if (json[i].storyPoints !=null) {
+                if (json[i].storyPoints != null) {
                     tr.append("<td>" + json[i].storyPoints + "</td>");
                 }
                 tr.append("<td>" + json[i].cycleDays + "</td>");
                 tr.append("<td>" + json[i].leadDays + "</td>");
-                if (json[i].waitingTestDays !=null) {
+                if (json[i].waitingTestDays != null) {
                     tr.append("<td>" + json[i].waitingTestDays + "</td>");
                 }
-                if (json[i].testingDays !=null) {
+                if (json[i].testingDays != null) {
                     tr.append("<td>" + json[i].testingDays + "</td>");
                 }
                 $('.table').append(tr);
             }
 
-            // <td th:text="${#temporals.format(issue.getUpdated(), 'dd.MM.yyyy HH:mm')}"></td>
-            // console.log( "JSON Data: " + json[1].issueKey );
         })
     }());
 </script>
