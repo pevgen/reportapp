@@ -12,7 +12,7 @@
 
 <script>
 
-     $(document).on('click', 'table td input', function() {
+    $(document).on('click', 'table td input', function() {
 
         $.ajax({
             url: '/api/v1/issues/' + this.id,
@@ -85,37 +85,37 @@
 
 
             var tr = ""
-            for (var i = 0; i < json.length; i++) {
+            for (var i = 0; i < json.issueList.length; i++) {
                 tr = $('<tr/>');
 
-                tr.append("<td><input class='deleteBtn' value='Delete' type='button' id='" + json[i].issueId + "'/></td>");
+                tr.append("<td><input class='deleteBtn' value='Delete' type='button' id='" + json.issueList[i].issueId + "'/></td>");
 
-                tr.append("<td>" + json[i].issueId + "</td>");
-                tr.append("<td>" + json[i].issueKey + "</td>");
-                tr.append("<td>" + json[i].issueType + "</td>");
+                tr.append("<td>" + json.issueList[i].issueId + "</td>");
+                tr.append("<td>" + json.issueList[i].issueKey + "</td>");
+                tr.append("<td>" + json.issueList[i].issueType + "</td>");
 
-                tr.append("<td>" + json[i].summary + "</td>");
-                tr.append("<td>" + dtFormatter.format(new Date(json[i].created)) + "</td>");
-                tr.append("<td>" + dtFormatter.format(new Date(json[i].startProcessInit)) + "</td>");
-                tr.append("<td>" + dtFormatter.format(new Date(json[i].startProcessUpdate)) + "</td>");
-                if (json[i].toTestInit != null) {
-                    tr.append("<td>" + dtFormatter.format(new Date(json[i].toTestInit)) + "</td>");
+                tr.append("<td>" + json.issueList[i].summary + "</td>");
+                tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].created)) + "</td>");
+                tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].startProcessInit)) + "</td>");
+                tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].startProcessUpdate)) + "</td>");
+                if (json.issueList[i].toTestInit != null) {
+                    tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].toTestInit)) + "</td>");
                 }
-                if (json[i].testingInit != null) {
-                    tr.append("<td>" + dtFormatter.format(new Date(json[i].testingInit)) + "</td>");
+                if (json.issueList[i].testingInit != null) {
+                    tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].testingInit)) + "</td>");
                 }
-                tr.append("<td>" + dtFormatter.format(new Date(json[i].resolved)) + "</td>");
-                tr.append("<td>" + dtFormatter.format(new Date(json[i].updated)) + "</td>");
-                if (json[i].storyPoints != null) {
-                    tr.append("<td>" + json[i].storyPoints + "</td>");
+                tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].resolved)) + "</td>");
+                tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].updated)) + "</td>");
+                if (json.issueList[i].storyPoints != null) {
+                    tr.append("<td>" + json.issueList[i].storyPoints + "</td>");
                 }
-                tr.append("<td>" + json[i].cycleDays + "</td>");
-                tr.append("<td>" + json[i].leadDays + "</td>");
-                if (json[i].waitingTestDays != null) {
-                    tr.append("<td>" + json[i].waitingTestDays + "</td>");
+                tr.append("<td>" + json.issueList[i].cycleDays + "</td>");
+                tr.append("<td>" + json.issueList[i].leadDays + "</td>");
+                if (json.issueList[i].waitingTestDays != null) {
+                    tr.append("<td>" + json.issueList[i].waitingTestDays + "</td>");
                 }
-                if (json[i].testingDays != null) {
-                    tr.append("<td>" + json[i].testingDays + "</td>");
+                if (json.issueList[i].testingDays != null) {
+                    tr.append("<td>" + json.issueList[i].testingDays + "</td>");
                 }
                 $('.table').append(tr);
             }

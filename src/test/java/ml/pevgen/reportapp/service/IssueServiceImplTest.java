@@ -52,10 +52,20 @@ class IssueServiceImplTest {
                                 LocalDateTime.now(),
                                 LocalDateTime.now(),
                                 3)));
-        var issueList = issueService.getAllIssues();
-        assertThat(issueList)
+        var issuesWithTotal = issueService.getIssuesWithTotal();
+        assertThat(issuesWithTotal)
+                .isNotNull();
+        assertThat(issuesWithTotal.getIssueList())
                 .isNotNull()
                 .hasSize(2);
+        assertThat(issuesWithTotal.getCycleDaysTotal())
+                .isNotNull();
+        assertThat(issuesWithTotal.getLeadDaysTotal())
+                .isNotNull();
+        assertThat(issuesWithTotal.getWaitingTestDaysTotal())
+                .isNotNull();
+        assertThat(issuesWithTotal.getTestingDaysTotal())
+                .isNotNull();
 
     }
 

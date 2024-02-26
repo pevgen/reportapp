@@ -1,6 +1,7 @@
 package ml.pevgen.reportapp.controller;
 
 import ml.pevgen.reportapp.model.DtoIssue;
+import ml.pevgen.reportapp.model.DtoIssuesWithTotal;
 import ml.pevgen.reportapp.service.IssueService;
 import ml.pevgen.reportapp.service.LoaderService;
 import org.junit.jupiter.api.Test;
@@ -37,13 +38,21 @@ class IssueApiControllerTest {
     @Test
     void should_return_model_and_template_for_all_issues_empty_list() throws Exception {
 
-        when(issueService.getAllIssues()).thenReturn(List.of());
+        when(issueService.getIssuesWithTotal()).thenReturn(
+                DtoIssuesWithTotal
+                        .builder()
+                        .issueList(List.of())
+                        .build());
 
         this.mockMvc
                 .perform(get("/api/v1/issues"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isEmpty());
+                .andExpect(jsonPath("$.issueList").isEmpty())
+                .andExpect(jsonPath("$.cycleDaysTotal").isEmpty())
+                .andExpect(jsonPath("$.waitingTestDaysTotal").isEmpty())
+                .andExpect(jsonPath("$.testingDaysTotal").isEmpty())
+                .andExpect(jsonPath("$.leadDaysTotal").isEmpty());
     }
 
     @Test
@@ -51,9 +60,11 @@ class IssueApiControllerTest {
         var dtFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         var createdDateTime = LocalDateTime.now();
         var resolvedDateTime = createdDateTime.plusDays(1);
-        when(issueService.getAllIssues())
-                .thenReturn(
-                        List.of(
+
+        when(issueService.getIssuesWithTotal()).thenReturn(
+                DtoIssuesWithTotal
+                        .builder()
+                        .issueList(List.of(
                                 DtoIssue.builder()
                                         .issueId("id-1")
                                         .created(createdDateTime)
@@ -61,14 +72,15 @@ class IssueApiControllerTest {
                                         .build(),
                                 DtoIssue.builder()
                                         .issueId("id-2")
-                                        .build()));
+                                        .build()))
+                        .build());
 
         this.mockMvc
                 .perform(get("/api/v1/issues"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isNotEmpty())
-                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.issueList").isNotEmpty())
+                .andExpect(jsonPath("$.issueList").isArray())
                 .andExpect(content().string(containsString("id-1")))
                 .andExpect(content().string(containsString("id-2")))
                 .andExpect(content().string(containsString(createdDateTime.format(dtFormatter))))
@@ -77,7 +89,7 @@ class IssueApiControllerTest {
 
     @Test
     void should_return_exception_using_global_exception_controller() throws Exception {
-        when(issueService.getAllIssues()).thenThrow(
+        when(issueService.getIssuesWithTotal()).thenThrow(
                 new RuntimeException("specific runtime exception"));
 
         this.mockMvc

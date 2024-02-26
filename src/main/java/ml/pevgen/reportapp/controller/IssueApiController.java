@@ -2,6 +2,7 @@ package ml.pevgen.reportapp.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import ml.pevgen.reportapp.model.DtoIssue;
+import ml.pevgen.reportapp.model.DtoIssuesWithTotal;
 import ml.pevgen.reportapp.service.IssueService;
 import ml.pevgen.reportapp.service.LoaderService;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +35,14 @@ public class IssueApiController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/noTotal")
     public List<DtoIssue> getIssues() {
         return issueService.getAllIssues();
+    }
+
+    @GetMapping
+    public DtoIssuesWithTotal getIssuesWithTotal() {
+        return issueService.getIssuesWithTotal();
     }
 
     @DeleteMapping
