@@ -82,7 +82,13 @@
                         hour: '2-digit',
                         minute: 'numeric'
                     });
-
+            const numsFormat =
+                new Intl.NumberFormat(
+                    'ru-RU',
+                    {
+                        // style: "percent",
+                        minimumFractionDigits: 2
+                    });
 
             var tr = ""
             for (var i = 0; i < json.issueList.length; i++) {
@@ -100,25 +106,67 @@
                 tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].startProcessUpdate)) + "</td>");
                 if (json.issueList[i].toTestInit != null) {
                     tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].toTestInit)) + "</td>");
+                } else {
+                    tr.append("<td/>");
                 }
                 if (json.issueList[i].testingInit != null) {
                     tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].testingInit)) + "</td>");
+                } else {
+                    tr.append("<td/>");
                 }
                 tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].resolved)) + "</td>");
                 tr.append("<td>" + dtFormatter.format(new Date(json.issueList[i].updated)) + "</td>");
                 if (json.issueList[i].storyPoints != null) {
                     tr.append("<td>" + json.issueList[i].storyPoints + "</td>");
+                } else {
+                    tr.append("<td/>");
                 }
-                tr.append("<td>" + json.issueList[i].cycleDays + "</td>");
-                tr.append("<td>" + json.issueList[i].leadDays + "</td>");
+                tr.append("<td>" + numsFormat.format(json.issueList[i].cycleDays) + "</td>");
+                tr.append("<td>" + numsFormat.format(json.issueList[i].leadDays) + "</td>");
                 if (json.issueList[i].waitingTestDays != null) {
-                    tr.append("<td>" + json.issueList[i].waitingTestDays + "</td>");
+                    tr.append("<td>" + numsFormat.format(json.issueList[i].waitingTestDays) + "</td>");
+                } else {
+                    tr.append("<td/>");
                 }
                 if (json.issueList[i].testingDays != null) {
-                    tr.append("<td>" + json.issueList[i].testingDays + "</td>");
+                    tr.append("<td>" + numsFormat.format(json.issueList[i].testingDays) + "</td>");
+                } else {
+                    tr.append("<td/>");
                 }
                 $('.table').append(tr);
             }
+            tr = $('<tr/>');
+            tr.append("<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>");
+            tr.append("<td>" + "Min" + "</td>");
+            tr.append("<td>" + numsFormat.format(json.cycleDaysTotal.min) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.leadDaysTotal.min) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.waitingTestDaysTotal.min) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.testingDaysTotal.min) + "</td>");
+            $('.table').append(tr);
+            tr = $('<tr/>');
+            tr.append("<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>");
+            tr.append("<td>" + "Max" + "</td>");
+            tr.append("<td>" + numsFormat.format(json.cycleDaysTotal.max) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.leadDaysTotal.max) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.waitingTestDaysTotal.max) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.testingDaysTotal.max) + "</td>");
+            $('.table').append(tr);
+            tr = $('<tr/>');
+            tr.append("<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>");
+            tr.append("<td>" + "Среднее" + "</td>");
+            tr.append("<td>" + numsFormat.format(json.cycleDaysTotal.avg) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.leadDaysTotal.avg) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.waitingTestDaysTotal.avg) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.testingDaysTotal.avg) + "</td>");
+            $('.table').append(tr);
+            tr = $('<tr/>');
+            tr.append("<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>");
+            tr.append("<td>" + "Медиана" + "</td>");
+            tr.append("<td>" + numsFormat.format(json.cycleDaysTotal.median) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.leadDaysTotal.median) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.waitingTestDaysTotal.median) + "</td>");
+            tr.append("<td>" + numsFormat.format(json.testingDaysTotal.median) + "</td>");
+            $('.table').append(tr);
 
         })
     }());

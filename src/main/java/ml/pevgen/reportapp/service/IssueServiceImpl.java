@@ -43,7 +43,7 @@ public class IssueServiceImpl implements IssueService {
         return DtoIssuesWithTotal.builder()
                 .issueList(issues)
                 .cycleDaysTotal(totalCalculator.getCycleDaysTotal())
-                .leadDaysTotal(totalCalculator.getCycleDaysTotal())
+                .leadDaysTotal(totalCalculator.getLeadDaysTotal())
                 .testingDaysTotal(totalCalculator.getTestingDaysTotal())
                 .waitingTestDaysTotal(totalCalculator.getWaitingTestDaysTotal())
                 .build();
