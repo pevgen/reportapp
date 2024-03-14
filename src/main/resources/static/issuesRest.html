@@ -38,7 +38,7 @@
 
 <h1 class="page-header">Список всех issue в БД</h1>
 
-<table class="table table-hover">
+<table class="table table-hover table-bordered">
     <thead>
     <tr>
         <th scope="col"></th>
@@ -136,36 +136,36 @@
                 $('.table').append(tr);
             }
             tr = $('<tr/>');
-            tr.append("<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>");
-            tr.append("<td>" + "Min" + "</td>");
-            tr.append("<td>" + numsFormat.format(json.cycleDaysTotal.min) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.leadDaysTotal.min) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.waitingTestDaysTotal.min) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.testingDaysTotal.min) + "</td>");
+            tr.append("<td colspan='12'/>");
+            tr.append("<td class='fw-bold'>" + "Min" + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.cycleDaysTotal.min) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.leadDaysTotal.min) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.waitingTestDaysTotal.min) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.testingDaysTotal.min) + "</td>");
             $('.table').append(tr);
             tr = $('<tr/>');
-            tr.append("<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>");
-            tr.append("<td>" + "Max" + "</td>");
-            tr.append("<td>" + numsFormat.format(json.cycleDaysTotal.max) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.leadDaysTotal.max) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.waitingTestDaysTotal.max) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.testingDaysTotal.max) + "</td>");
+            tr.append("<td colspan='12'/>");
+            tr.append("<td class='fw-bold'>" + "Max" + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.cycleDaysTotal.max) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.leadDaysTotal.max) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.waitingTestDaysTotal.max) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.testingDaysTotal.max) + "</td>");
             $('.table').append(tr);
             tr = $('<tr/>');
-            tr.append("<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>");
-            tr.append("<td>" + "Среднее" + "</td>");
-            tr.append("<td>" + numsFormat.format(json.cycleDaysTotal.avg) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.leadDaysTotal.avg) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.waitingTestDaysTotal.avg) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.testingDaysTotal.avg) + "</td>");
+            tr.append("<td colspan='12'/>");
+            tr.append("<td class='fw-bold'>" + "Среднее" + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.cycleDaysTotal.avg) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.leadDaysTotal.avg) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.waitingTestDaysTotal.avg) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.testingDaysTotal.avg) + "</td>");
             $('.table').append(tr);
             tr = $('<tr/>');
-            tr.append("<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>");
-            tr.append("<td>" + "Медиана" + "</td>");
-            tr.append("<td>" + numsFormat.format(json.cycleDaysTotal.median) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.leadDaysTotal.median) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.waitingTestDaysTotal.median) + "</td>");
-            tr.append("<td>" + numsFormat.format(json.testingDaysTotal.median) + "</td>");
+            tr.append("<td colspan='12'/>");
+            tr.append("<td class='fw-bold'>" + "Медиана" + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.cycleDaysTotal.median) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.leadDaysTotal.median) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.waitingTestDaysTotal.median) + "</td>");
+            tr.append("<td class='fw-bold'>" + numsFormat.format(json.testingDaysTotal.median) + "</td>");
             $('.table').append(tr);
 
         })
