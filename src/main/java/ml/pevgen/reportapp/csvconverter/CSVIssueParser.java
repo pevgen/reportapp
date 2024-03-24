@@ -1,4 +1,4 @@
-package ml.pevgen.reportapp.parser;
+package ml.pevgen.reportapp.csvconverter;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import ml.pevgen.reportapp.model.CSVIssue;

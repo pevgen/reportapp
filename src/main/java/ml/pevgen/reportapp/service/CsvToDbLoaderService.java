@@ -2,7 +2,7 @@ package ml.pevgen.reportapp.service;
 
 import ml.pevgen.reportapp.model.CSVIssue;
 import ml.pevgen.reportapp.model.DbIssue;
-import ml.pevgen.reportapp.parser.CSVIssueParser;
+import ml.pevgen.reportapp.csvconverter.CSVIssueParser;
 import ml.pevgen.reportapp.repo.IssueRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

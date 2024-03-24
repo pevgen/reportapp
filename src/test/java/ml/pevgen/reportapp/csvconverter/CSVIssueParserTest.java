@@ -1,4 +1,4 @@
-package ml.pevgen.reportapp.parser;
+package ml.pevgen.reportapp.csvconverter;
 
 import ml.pevgen.reportapp.model.CSVIssue;
 import org.junit.jupiter.api.Test;

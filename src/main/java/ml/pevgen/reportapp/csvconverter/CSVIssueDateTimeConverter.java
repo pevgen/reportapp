@@ -1,4 +1,4 @@
-package ml.pevgen.reportapp.parser;
+package ml.pevgen.reportapp.csvconverter;
 
 import com.opencsv.bean.AbstractBeanField;
 import lombok.extern.slf4j.Slf4j;

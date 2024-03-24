@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import ml.pevgen.reportapp.parser.CSVIssueDateTimeConverter;
+import ml.pevgen.reportapp.csvconverter.CSVIssueDateTimeConverter;
 
 import java.time.LocalDateTime;
 

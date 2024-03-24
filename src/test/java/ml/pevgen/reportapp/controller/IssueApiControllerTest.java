@@ -3,11 +3,13 @@ package ml.pevgen.reportapp.controller;
 import ml.pevgen.reportapp.model.DtoIssue;
 import ml.pevgen.reportapp.model.DtoIssuesWithTotal;
 import ml.pevgen.reportapp.service.IssueService;
+import ml.pevgen.reportapp.service.IssuesWithTotalBytesGenerator;
 import ml.pevgen.reportapp.service.LoaderService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -16,6 +18,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -32,6 +35,8 @@ class IssueApiControllerTest {
 
     @MockBean
     private IssueService issueService;
+    @MockBean
+    private IssuesWithTotalBytesGenerator generator;
     @MockBean
     private LoaderService loaderService;
 
@@ -118,6 +123,18 @@ class IssueApiControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Deleted issue with id = [1]")));
+    }
+
+    @Test
+    void should_return_bytes_of_csv() throws Exception {
+        when(generator.generate(any())).thenReturn(new byte[]{1, 2, 3});
+        this.mockMvc
+                .perform(get("/api/v1/issues/files/csv", 1))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(header().string("Content-Disposition", "form-data; name=\"attachment\"; filename=\"issues_with_total.csv\""))
+                .andExpect(header().string("Content-Type", MediaType.APPLICATION_OCTET_STREAM.toString()))
+                .andExpect(content().bytes(new byte[]{1, 2, 3}));
     }
 
 }
