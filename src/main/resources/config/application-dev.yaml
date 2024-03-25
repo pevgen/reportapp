@@ -9,6 +9,15 @@ spring:
     username: myuser
     password: secret
 
+#  needs for reload in local development
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
+  devtools:
+    restart:
+      additional-paths: file:src/main/resources/static/
+
 logging:
   level:
     org.springframework.jdbc.core.JdbcTemplate: TRACE
+
